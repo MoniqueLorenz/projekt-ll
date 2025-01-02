@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sum</title>
+</head>
+<body>
+    <div id="controls">
+        <div class="control" id="creator">
+            <!-- Gemensamma "creator"-element appendas här från common.js -->
+        </div>
+        <div class="control">
+            <div class="padded">Sum of all: </div>
+            <div id="sumResultAll" class="result padded">-</div>
+        </div>
+        <div class="control">
+            <div class="padded">Sum of marked: </div>
+            <div id="sumResultMarked" class="result padded">-</div>
+            <div>
+                <button id="reset" class="padded">Reset</button>
+            </div>
+        </div>
+    </div>
+    <div id="numbers"></div>
+    <script src="common.js"></script>
+    <script src="sum.js"></script>
+</body>
+</html>
