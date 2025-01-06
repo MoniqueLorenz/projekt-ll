@@ -1,0 +1,62 @@
+body {
+    text-align: center;
+    margin: 20px;
+}
+
+a {
+    display: block;
+    margin-top: 0;
+}
+
+#controls {
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.control {
+    margin-bottom: 10px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    margin-right: 10px;
+    padding: 5px;
+    width: 80px;
+    text-align: center;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#numbers {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, 50px); /* Fixed size columns */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.number-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Fixed width */
+    height: 50px; /* Fixed height */
+    border: 1px solid #030303;
+    background-color: #ffffff;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.number-box.marked {
+    background-color: #fcb3e1;
+}
