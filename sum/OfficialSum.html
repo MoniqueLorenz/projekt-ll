@@ -1,67 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sum</title>
-    <style>
-                body {
-            text-align: center;
-            margin: 20px;
-        }
-        a {
-            display: block;
-            margin-top: 0;
-        }
-        #controls {
-            display: inline-block;
-            text-align: left;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-        .control {
-            margin-bottom: 10px;
-        }
-        label {
-            margin-bottom: 5px;
-        }
-        input {
-            margin-right: 10px;
-            padding: 5px;
-            width: 80px;
-            text-align: center;
-        }
-        button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        #numbers {
-            display: grid;
-            gap: 10px;
-            grid-template-columns: repeat(auto-fit, 50px); /* Fixed size columns */
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .number-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px; /* Fixed width */
-            height: 50px; /* Fixed height */
-            border: 1px solid #ccc;
-            background-color: #e0e0e0;
-            cursor: pointer;
-            user-select: none;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        .number-box.marked {
-            background-color: #fcb3e1;
-        }
-    </style>
+    <link rel="stylesheet" href="../common.css">
 </head>
+
 <body>
-    <a href="projektindex.html">Home</a>
     <div id="controls">
         <div class="control">
             <label>How many numbers in the grid? <input type="number" id="boxCount" min="1"></label>
@@ -78,99 +25,9 @@
         </div>
     </div>
     <div id="numbers"></div> <!-- Add this to display the grid -->
-    <script>
-const boxCountInput = document.getElementById('boxCount');
-const generateButton = document.getElementById('generate');
-const numbersDiv = document.getElementById('numbers');
-const sumResultAll = document.getElementById('sumResultAll');
-const sumResultMarked = document.getElementById('sumResultMarked');
-const resetMarkedButton = document.getElementById('resetMarked');
-const numbersContainer = document.getElementById('numbers');
-
-// Function to create the grid with random numbers
-function createGrid(count) {
-    // Clear the container before creating a new grid
-    numbersContainer.innerHTML = '';
-
-    // Set a range for random numbers (e.g., 1 to 100)
-    const minValue = 1;
-    const maxValue = 100;
-
-    let totalSum = 0; // Variable to store the sum of all numbers
-
-    // Calculate the number of columns for a balanced layout
-    const columns = Math.ceil(Math.sqrt(count));
-    numbersContainer.style.gridTemplateColumns = `repeat(${columns}, 50px)`;
-
-    // Create the grid boxes with random numbers
-    for (let i = 1; i <= count; i++) {
-        const box = document.createElement('div');
-        box.className = 'number-box';
-
-        // Generate a random number within the specified range
-        const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
-        box.textContent = randomNumber; // Display the random number in the box
-
-        // Store the random number in a data attribute for later use
-        box.dataset.value = randomNumber;
-
-        // Add the random number to the total sum
-        totalSum += randomNumber;
-
-        // Append the box to the container
-        numbersContainer.appendChild(box);
-    }
-
-    // Update the "Sum of all" input field
-    sumResultAll.value = totalSum;
-}
-
-
-function toggleMarked(event) {
-    const box = event.target;
-
-    // Toggle the 'marked' class on the clicked box
-    box.classList.toggle('marked');
-
-    // Get all marked boxes
-    const markedBoxes = document.querySelectorAll('.number-box.marked');
-
-    // Calculate the sum of all marked boxes
-    const markedSum = Array.from(markedBoxes)
-        .reduce((sum, box) => sum + parseInt(box.dataset.value), 0);
-
-    // Display the marked sum in the input field
-    sumResultMarked.value = markedSum;
-}
-
-// Add event listener to each number box after the grid is created
-numbersDiv.addEventListener('click', (event) => {
-    if (event.target.classList.contains('number-box')) {
-        toggleMarked(event);
-    }
-});
-
-
-// Event listener for the "Create" button
-generateButton.addEventListener('click', () => {
-    const count = parseInt(boxCountInput.value, 10);
-
-    // Validate the input
-    if (isNaN(count) || count <= 0) {
-        alert('Please enter a valid positive number.');
-        return;
-    }
-
-    // Create the grid with random numbers
-    createGrid(count);
-});
-
-function resetMarkedSum() {
-    const markedBoxes = document.querySelectorAll('.number-box.marked');
-    markedBoxes.forEach(box => box.classList.remove('marked')); // Remove the 'marked' class
-    sumResultMarked.value = '-'; // Reset the sum of marked boxes
-}
-resetMarkedButton.addEventListener('click', resetMarkedSum);
-</script>
+     <!-- scripts -->
+    <script src="../common.js"></script>
+    <script src="Sum.js"></script>
 </body>
 </html>
+
