@@ -1,6 +1,8 @@
 const generateButton = document.getElementById('generate');
 const boxCountInput = document.getElementById('boxCount');
 const numbersDiv = document.getElementById('numbers');
+const sumResultMarked = document.getElementById('sumResultMarked');
+
 
 // Reusable grid creation function
 function createGrid(container, numbersList) {
@@ -14,3 +16,10 @@ function createGrid(container, numbersList) {
         container.appendChild(box);
     });
 }
+
+
+
+
+
+
+

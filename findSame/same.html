@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Same</title>
+    <style>
+            body {
+            text-align: center;
+            margin: 20px;
+        }
+
+        a {
+            display: block;
+            margin-top: 0;
+        }
+
+        #controls {
+            display: inline-block;
+            text-align: left;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .control {
+            margin-bottom: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-right: 10px;
+            padding: 5px;
+            width: 80px;
+            text-align: center;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        #numbers {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(auto-fit, 50px); /* Fixed size columns */
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .number-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px; /* Fixed width */
+            height: 50px; /* Fixed height */
+            border: 1px solid #ccc;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            user-select: none;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .number-box.marked {
+            background-color: #fcb3e1;
+        }
+    </style>
+    </style>
+</head>
+<body>
+    <body>
+        <a href="index.html">Home</a>
+        <div id="controls">
+            <div class="control">
+                <label>How many numbers in the grid? <input type="number" id="boxCount" min="1"></label>
+                <button id="generate">Create</button>
+            </div>
+            <div class="control">
+                <label>Click on a number to find copies</label>
+                <input type="text" id="sumResultAll" readonly value="-">
+                <button id="resetMarked">Reset</button>
+
+            </div>
+        </div>
+        <div id="numbers"></div> <!-- Add this to display the grid -->
+    </body>
+</body>
+<script>
+
+const resetMarkedButton = document.getElementById('resetMarked');
+const generateButton = document.getElementById('generate');
+const boxCountInput = document.getElementById('boxCount');
+const numbersDiv = document.getElementById('numbers');
+const sumResultMarked = document.getElementById('sumResultMarked');
+
+
+
+
+
+
+
+
+
+
+
+// Reusable grid creation function
+function createGrid(container, numbersList) {
+    container.innerHTML = ''; // Clear any existing grid
+    numbersList.forEach(number => {
+        const box = document.createElement('div');
+        box.classList.add('number-box');
+        box.textContent = number;
+        box.dataset.value = number;
+        box.addEventListener('click', toggleMarked); // Add click event listener
+        container.appendChild(box);
+    });
+}
+
+
+
+
+
+
+
+function resetMarkedSum() {
+    const markedBoxes = document.querySelectorAll('.number-box.marked');
+    markedBoxes.forEach(box => box.classList.remove('marked')); // Remove the 'marked' class
+    sumResultMarked.value = '-'; // Reset the sum of marked boxes
+}
+
+resetMarkedButton.addEventListener('click', resetMarkedSum);
+
+</script>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sum</title>
+    <title>Repetitions</title>
     <style>
         body {
             text-align: center;
@@ -30,10 +30,11 @@
             margin-bottom: 5px;
         }
 
-        input {
-            margin-right: 10px;
-            padding: 5px;
-            width: 80px;
+        /* Make the result fields larger */
+        input[type="text"] {
+            width: 300px; /* Increased width */
+            font-size: 18px; /* Larger font size */
+            padding: 10px; /* Added padding */
             text-align: center;
         }
 
@@ -45,7 +46,7 @@
         #numbers {
             display: grid;
             gap: 10px;
-            grid-template-columns: repeat(auto-fit, 50px); /* Fixed size columns */
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Flexible column sizing */
             justify-content: center;
             margin-top: 20px;
         }
@@ -54,8 +55,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px; /* Fixed width */
-            height: 50px; /* Fixed height */
+            width: 50px;
+            height: 50px;
             border: 1px solid #ccc;
             background-color: #e0e0e0;
             cursor: pointer;
@@ -65,7 +66,7 @@
         }
 
         .number-box.marked {
-            background-color: #b3e5fc;
+            background-color: #fcb3e1;
         }
     </style>
 </head>
@@ -73,110 +74,104 @@
     <a href="index.html">Home</a>
     <div id="controls">
         <div class="control">
-            <label>How many numbers in the grid? <input type="number" id="boxCount" min="1"></label>
-            <button id="generate">Create</button>
+            <label>Enter numbers (comma-separated):</label>
+            <textarea id="numbersInput" placeholder="Enter numbers here (e.g., 1, 2, 3, 4, 5)"></textarea>
         </div>
         <div class="control">
-            <label>Sum of all:</label>
+            <button id="generateGrid">Generate Grid</button>
+        </div>
+        <div class="control">
+            <label>Most repeated number(s):</label>
             <input type="text" id="sumResultAll" readonly value="-">
         </div>
         <div class="control">
-            <label>Sum of marked:</label>
+            <label>Number(s) not in place:</label>
             <input type="text" id="sumResultMarked" readonly value="-">
-            <button id="resetMarked">Reset</button>
         </div>
     </div>
     <div id="numbers"></div> <!-- Add this to display the grid -->
-
-<script>
-    const boxCountInput = document.getElementById("boxCount");
-    const numbersDiv = document.getElementById("numbers");
-    const sumResultAll = document.getElementById("sumResultAll");
-    const sumResultMarked = document.getElementById("sumResultMarked");
-    const generateButton = document.getElementById("generate");
-    const resetMarkedButton = document.getElementById("resetMarked");
-
-    let numbers = []; // Array to hold the numbers
-
-    // Function to toggle the 'marked' class on click
-    function toggleMarked(event) {
-        const box = event.target;
-        box.classList.toggle("marked");
-
-        // Update the sum of marked numbers
-        const markedBoxes = document.querySelectorAll(".number-box.marked");
-        const markedSum = Array.from(markedBoxes).reduce((sum, box) => sum + parseInt(box.dataset.value), 0);
-        sumResultMarked.value = markedSum;
-    }
-
-    // Function to find the most repeated number
-    function findMostRepeated() {
-        const frequency = {};
-
-        // Count occurrences of each number
-        numbers.forEach(number => {
-            frequency[number] = (frequency[number] || 0) + 1;
-        });
-
-        // Find the number with the maximum frequency
-        let mostRepeated = null;
-        let maxFrequency = 0;
-        for (const [number, count] of Object.entries(frequency)) {
-            if (count > maxFrequency) {
-                maxFrequency = count;
-                mostRepeated = number;
-            }
-        }
-
-        return mostRepeated;
-    }
-
-    // Function to generate the grid
-    function generateGrid() {
-        const boxCount = parseInt(boxCountInput.value);
-
-        if (isNaN(boxCount) || boxCount <= 0) {
-            alert("Please enter a valid positive number for the grid.");
-            return;
-        }
-
-        const totalSum = Math.floor(Math.random() * 5000) + 1000; // Random total sum between 1000 and 6000
-
-        // Generate `boxCount` random numbers that add up to `totalSum`
-        numbers = Array.from({ length: boxCount }, () => Math.floor(Math.random() * (totalSum / boxCount)) + 1);
-
-        // Adjust the last number so the total matches `totalSum`
-        const currentSum = numbers.reduce((a, b) => a + b, 0);
-        numbers[numbers.length - 1] += totalSum - currentSum;
-
-        // Shuffle the numbers
-        numbers.sort(() => Math.random() - 0.5);
-
-        // Create the grid
-        numbersDiv.innerHTML = "";
-        numbers.forEach(number => {
-            const box = document.createElement("div");
-            box.classList.add("number-box");
-            box.textContent = number;
-            box.dataset.value = number;
-            box.addEventListener("click", toggleMarked);
-            numbersDiv.appendChild(box);
-        });
-
-        sumResultAll.value = totalSum; // Display the total sum
-        sumResultMarked.value = "-";  // Reset the marked sum field
-
-        // Calculate and display the most repeated number
-        const mostRepeated = findMostRepeated();
-        alert(`The most repeated number is: ${mostRepeated}`);
-    }
-
-    // Event listeners
-    generateButton.addEventListener("click", generateGrid);
-    resetMarkedButton.addEventListener("click", () => {
-        document.querySelectorAll(".number-box.marked").forEach(box => box.classList.remove("marked"));
-        sumResultMarked.value = "-";
-    });
-</script>
 </body>
+<script>
+const generateGridButton = document.getElementById('generateGrid');
+const numbersInput = document.getElementById('numbersInput');
+const numbersDiv = document.getElementById('numbers');
+const sumResultAll = document.getElementById('sumResultAll');
+const sumResultMarked = document.getElementById('sumResultMarked');
+
+// Function to auto-resize the textarea based on content
+function autoResizeTextarea() {
+    numbersInput.style.height = 'auto'; // Reset height
+    numbersInput.style.height = (numbersInput.scrollHeight) + 'px'; // Set height based on scrollHeight
+}
+
+// Event listener to auto-resize the textarea
+numbersInput.addEventListener('input', autoResizeTextarea);
+
+function generateGrid() {
+    const inputValue = numbersInput.value.trim();
+    
+    if (!inputValue) {
+        alert('Please enter valid numbers separated by commas.');
+        return;
+    }
+
+    // Parse the numbers from the input (expecting comma-separated values)
+    const numbers = inputValue.split(',').map(num => {
+        return parseInt(num.trim());
+    }).filter(num => !isNaN(num) && num > 0); // Filter out invalid numbers
+
+    if (numbers.length === 0) {
+        alert('Please enter valid positive numbers.');
+        return;
+    }
+
+    // Create the grid (same as before)
+    createGrid(numbersDiv, numbers);
+
+    // Calculate the most repeated number(s)
+    const frequency = {};
+    numbers.forEach(num => {
+        frequency[num] = (frequency[num] || 0) + 1;
+    });
+
+    const maxFrequency = Math.max(...Object.values(frequency));
+    const mostRepeatedNumbers = Object.keys(frequency)
+        .filter(num => frequency[num] === maxFrequency)
+        .map(Number); // Convert keys back to numbers
+
+    // Display the most repeated number(s)
+    sumResultAll.value = mostRepeatedNumbers.join(', ');
+
+    // Mark the most repeated number(s) in the grid
+    document.querySelectorAll('.number-box').forEach(box => {
+        const number = parseInt(box.dataset.value);
+        if (mostRepeatedNumbers.includes(number)) {
+            box.classList.add('marked');
+        } else {
+            box.classList.remove('marked'); // Ensure other boxes are unmarked
+        }
+    });
+
+    // Find and display the missing numbers
+    const maxNumber = Math.max(...numbers); // Find the maximum number in the grid
+    const allNumbers = Array.from({ length: maxNumber }, (_, i) => i + 1); // Create range [1, 2, ..., maxNumber]
+    const missingNumbers = allNumbers.filter(num => !numbers.includes(num)); // Filter numbers not in the grid
+
+    sumResultMarked.value = missingNumbers.length > 0 ? missingNumbers.join(', ') : 'None';
+}
+
+// Reusable grid creation function
+function createGrid(container, numbersList) {
+    container.innerHTML = ''; // Clear any existing grid
+    numbersList.forEach(number => {
+        const box = document.createElement('div');
+        box.classList.add('number-box');
+        box.textContent = number;
+        box.dataset.value = number;
+        container.appendChild(box);
+    });
+}
+
+generateGridButton.addEventListener('click', generateGrid);
+</script>
 </html>
