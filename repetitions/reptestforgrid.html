@@ -89,90 +89,109 @@
     <div id="numbers"></div> <!-- Add this to display the grid -->
 </body>
 <script>
+    // Get references to the necessary elements
+    const generateButton = document.getElementById('generate');
+    const numbersContainer = document.getElementById('numbers');
+    const boxCountInput = document.getElementById('boxCount');
 
-const generateButton = document.getElementById('generate');
-const boxCountInput = document.getElementById('boxCount');
-const numbersDiv = document.getElementById('numbers');
+// Function to create the grid with random numbers
+function createGrid(count) {
+    // Clear the container before creating a new grid
+    numbersContainer.innerHTML = '';
 
+    // Set a range for random numbers (e.g., 1 to 100)
+    const minValue = 1;
+    const maxValue = 100;
 
-function generateGrid() {
-    const boxCount = parseInt(boxCountInput.value);
+    // Calculate the number of columns for a balanced layout
+    const columns = Math.ceil(Math.sqrt(count));
+    numbersContainer.style.gridTemplateColumns = `repeat(${columns}, 50px)`;
 
-    if (isNaN(boxCount) || boxCount <= 0) {
-        alert('Please enter a valid positive number for the grid.');
+    // Create the grid boxes with random numbers
+    for (let i = 1; i <= count; i++) {
+        const box = document.createElement('div');
+        box.className = 'number-box';
+
+        // Generate a random number within the specified range
+        const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
+        box.textContent = randomNumber; // Display the random number in the box
+
+        // Store the random number in a data attribute for later use
+        box.dataset.value = randomNumber;
+
+        // Append the box to the container
+        numbersContainer.appendChild(box);
+    }
+}
+
+// Event listener for the "Create" button
+generateButton.addEventListener('click', () => {
+    const count = parseInt(boxCountInput.value, 10);
+
+    // Validate the input
+    if (isNaN(count) || count <= 0) {
+        alert('Please enter a valid positive number.');
         return;
     }
 
-    const totalSum = Math.floor(Math.random() * 5000) + 1000; // Random total sum between 1000 and 6000
+    // Create the grid with random numbers
+    createGrid(count);
 
-    // Generate `boxCount` random numbers that add up to `totalSum`
-    const numbers = Array.from({ length: boxCount }, () => Math.floor(Math.random() * (totalSum / boxCount)) + 1);
+    // After creating the grid, analyze the grid for the most repeated numbers and missing numbers
+    analyzeGrid();
+});
 
-    // Adjust the last number so the total matches `totalSum`
-    const currentSum = numbers.reduce((a, b) => a + b, 0);
-    numbers[numbers.length - 1] += totalSum - currentSum;
 
-    // Shuffle the numbers
-    numbers.sort(() => Math.random() - 0.5);
 
-    // Create the grid (no changes here)
-    createGrid(numbersDiv, numbers);
 
-    // Calculate the most repeated number(s)
+// Function to analyze the grid for the most repeated number(s) and missing numbers, and mark them
+function analyzeGrid() {
+    // Retrieve the numbers displayed in the grid
+    const numbers = [];
+    document.querySelectorAll('.number-box').forEach(box => {
+        numbers.push(parseInt(box.textContent)); // Store the numbers from the grid
+    });
+
+    // Step 1: Calculate the frequency of each number in the grid
     const frequency = {};
     numbers.forEach(num => {
         frequency[num] = (frequency[num] || 0) + 1;
     });
 
+    // Step 2: Find the maximum frequency (the highest number of repetitions)
     const maxFrequency = Math.max(...Object.values(frequency));
+
+    // Step 3: Find the number(s) with the highest frequency
     const mostRepeatedNumbers = Object.keys(frequency)
         .filter(num => frequency[num] === maxFrequency)
         .map(Number); // Convert keys back to numbers
 
-    // Display the most repeated number(s)
+    // Step 4: Display the most repeated number(s) in the input field
     sumResultAll.value = mostRepeatedNumbers.join(', ');
 
-    // Mark the most repeated number(s) in the grid
+    // Step 5: Identify missing numbers (let's assume range is from 1 to the maximum number in the grid)
+    const maxNumberInGrid = Math.max(...numbers);
+    const missingNumbers = [];
+    for (let i = 1; i <= maxNumberInGrid; i++) {
+        if (!numbers.includes(i)) {
+            missingNumbers.push(i);
+        }
+    }
+
+    // Step 6: Display the missing numbers in the input field
+    sumResultMarked.value = missingNumbers.length > 0 ? missingNumbers.join(', ') : '-';
+
+    // Step 7: Mark the most repeated number(s) in the grid
     document.querySelectorAll('.number-box').forEach(box => {
-        const number = parseInt(box.dataset.value);
+        const number = parseInt(box.textContent);
         if (mostRepeatedNumbers.includes(number)) {
             box.classList.add('marked');
         } else {
             box.classList.remove('marked'); // Ensure other boxes are unmarked
         }
     });
-
-    // Find and display the missing numbers
-    const maxNumber = Math.max(...numbers); // Find the maximum number in the grid
-    const allNumbers = Array.from({ length: maxNumber }, (_, i) => i + 1); // Create range [1, 2, ..., maxNumber]
-    const missingNumbers = allNumbers.filter(num => !numbers.includes(num)); // Filter numbers not in the grid
-
-    sumResultMarked.value = missingNumbers.length > 0 ? missingNumbers.join(', ') : 'None';
 }
 
-
-function findMissingNumbers(numbers) {
-    const maxNumber = Math.max(...numbers);
-    const allNumbers = Array.from({ length: maxNumber }, (_, i) => i + 1); // [1, 2, ..., maxNumber]
-    const missingNumbers = allNumbers.filter(num => !numbers.includes(num));
-    return missingNumbers;
-}
-
-
-// Reusable grid creation function
-function createGrid(container, numbersList) {
-    container.innerHTML = ''; // Clear any existing grid
-    numbersList.forEach(number => {
-        const box = document.createElement('div');
-        box.classList.add('number-box');
-        box.textContent = number;
-        box.dataset.value = number;
-        container.appendChild(box);
-    });
-}
-
-
-generateButton.addEventListener('click', generateGrid);
 
 </script>
 </html>
