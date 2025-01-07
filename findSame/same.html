@@ -85,8 +85,8 @@
             <button id="generate">Create</button>
         </div>
         <div class="control2">
-            <label>Click on a number to find copies</label>
-            <div id="sumResultAll">-</div>
+            <label id="copies">Click on a number to find copies</label>
+            <div id="sumResultAll"></div>
             <button id="resetMarked">Reset</button>
         </div>
     </div>
@@ -159,7 +159,7 @@
             });
 
             // Update the text to show how many copies of the number
-            sumResultAll.textContent = `${matchingBoxes.length} copies of the number ${number}`;
+            copies.textContent = `${matchingBoxes.length} copies of the number ${number}`;
         }
 
         // Function to reset marked boxes
