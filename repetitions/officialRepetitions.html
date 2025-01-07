@@ -1,75 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Repetitions</title>
-    <style>
-        body {
-            text-align: center;
-            margin: 20px;
-        }
-
-        a {
-            display: block;
-            margin-top: 0;
-        }
-
-        #controls {
-            display: inline-block;
-            text-align: left;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-
-        .control {
-            margin-bottom: 10px;
-        }
-
-        label {
-            margin-bottom: 5px;
-        }
-
-        input {
-            margin-right: 10px;
-            padding: 5px;
-            width: 80px;
-            text-align: center;
-        }
-
-        button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        #numbers {
-            display: grid;
-            gap: 10px;
-            grid-template-columns: repeat(auto-fit, 50px); /* Fixed size columns */
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .number-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px; /* Fixed width */
-            height: 50px; /* Fixed height */
-            border: 1px solid #f1acba;
-            background-color: #e0e0e0;
-            cursor: pointer;
-            user-select: none;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        .number-box.marked {
-            background-color: #fcb3e1;
-        }
-    </style>
+    <link rel="stylesheet" href="../common.css">
 </head>
+
 <body>
     <a href="index.html">Home</a>
     <div id="controls">
@@ -88,124 +26,6 @@
     </div>
     <div id="numbers"></div> <!-- Add this to display the grid -->
 </body>
-<script>
-    // Get references to the necessary elements
-    const generateButton = document.getElementById('generate');
-    const numbersContainer = document.getElementById('numbers');
-    const boxCountInput = document.getElementById('boxCount');
-
-// Function to create the grid with random numbers
-function createGrid(count) {
-    // Clear the container before creating a new grid
-    numbersContainer.innerHTML = '';
-
-    // Set a range for random numbers (e.g., 1 to 100)
-    const minValue = 1;
-    const maxValue = 100;
-
-    let totalSum = 0; // Variable to store the sum of all numbers
-
-    // Calculate the number of columns for a balanced layout
-    const columns = Math.ceil(Math.sqrt(count));
-    numbersContainer.style.gridTemplateColumns = `repeat(${columns}, 50px)`;
-
-    // Create the grid boxes with random numbers
-    for (let i = 1; i <= count; i++) {
-        const box = document.createElement('div');
-        box.className = 'number-box';
-
-        // Generate a random number within the specified range
-        const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
-        box.textContent = randomNumber; // Display the random number in the box
-
-        // Store the random number in a data attribute for later use
-        box.dataset.value = randomNumber;
-
-        // Add the random number to the total sum
-        totalSum += randomNumber;
-
-        // Append the box to the container
-        numbersContainer.appendChild(box);
-    }
-
-    // Update the "Sum of all" input field
-    sumResultAll.value = totalSum;
-}
-
-
-// Event listener for the "Create" button
-generateButton.addEventListener('click', () => {
-    const count = parseInt(boxCountInput.value, 10);
-
-    // Validate the input
-    if (isNaN(count) || count <= 0) {
-        alert('Please enter a valid positive number.');
-        return;
-    }
-
-    // Create the grid with random numbers
-    createGrid(count);
-
-    // After creating the grid, analyze the grid for the most repeated numbers and missing numbers
-    analyzeGrid();
-});
-
-
-
-
-// Function to analyze the grid for the most repeated number(s) and missing numbers, and mark them
-function analyzeGrid() {
-    // Retrieve the numbers displayed in the grid
-    const numbers = [];
-    document.querySelectorAll('.number-box').forEach(box => {
-        numbers.push(parseInt(box.textContent)); // Store the numbers from the grid
-    });
-
-    // Step 1: Calculate the frequency of each number in the grid
-    const frequency = {};
-    numbers.forEach(num => {
-        frequency[num] = (frequency[num] || 0) + 1;
-    });
-
-    // Step 2: Find the maximum frequency (the highest number of repetitions)
-    const maxFrequency = Math.max(...Object.values(frequency));
-
-    // Step 3: Find the number(s) with the highest frequency
-    const mostRepeatedNumbers = Object.keys(frequency)
-        .filter(num => frequency[num] === maxFrequency)
-        .map(Number); // Convert keys back to numbers
-
-    // Step 4: Display the most repeated number(s) in the input field
-    sumResultAll.value = mostRepeatedNumbers.join(', ');
-
-    // Step 5: Identify missing numbers (let's assume range is from 1 to the maximum number in the grid)
-    const maxNumberInGrid = Math.max(...numbers);
-    const missingNumbers = [];
-    for (let i = 1; i <= maxNumberInGrid; i++) {
-        if (!numbers.includes(i)) {
-            missingNumbers.push(i);
-        }
-    }
-
-    // Step 6: Display the missing numbers in the input field
-    sumResultMarked.value = missingNumbers.length > 0 ? missingNumbers.join(', ') : '-';
-
-    // Step 7: Mark the most repeated number(s) in the grid
-    document.querySelectorAll('.number-box').forEach(box => {
-        const number = parseInt(box.textContent);
-        if (mostRepeatedNumbers.includes(number)) {
-            box.classList.add('marked');
-        } else {
-            box.classList.remove('marked'); // Ensure other boxes are unmarked
-        }
-    });
-}
-
-
-</script>
+<script src="../common.js"></script>
+<script src="Repetitions.js"></script>
 </html>
-
-
-
-
-
