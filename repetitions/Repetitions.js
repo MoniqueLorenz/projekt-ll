@@ -18,6 +18,11 @@ createGrid(count);
 analyzeGrid();
 });
 
+
+
+
+
+
 // Function to analyze the grid for the most repeated number(s) and missing numbers, and mark them
 function analyzeGrid() {
 // Retrieve the numbers displayed in the grid

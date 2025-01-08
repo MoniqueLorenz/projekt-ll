@@ -1,11 +1,19 @@
+@font-face {
+    font-family: LEMONMILK-Regular;
+    src: url(lemon_milk/LEMONMILK-Regular.otf);
+}
+
 body {
     text-align: center;
     margin: 20px;
+    font-family: 'lemonmilk-regular';
+    font-size: 13px;;
 }
 
 a {
     display: block;
     margin-top: 0;
+
 }
 
 #controls {

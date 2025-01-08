@@ -1,81 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Same</title>
-    <style>
-        body {
-            text-align: center;
-            margin: 20px;
-        }
-
-        a {
-            display: block;
-            margin-top: 0;
-        }
-
-        #controls {
-            display: inline-block;
-            text-align: left;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-
-        .control {
-            margin-bottom: 10px;
-        }
-
-        .control2 {
-            margin-bottom: 10px;
-            display: ruby;
-        }
-
-        label {
-            margin-bottom: 5px;
-        }
-
-        input {
-            margin-right: 10px;
-            padding: 5px;
-            width: 80px;
-            text-align: center;
-        }
-
-        button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        #numbers {
-            display: grid;
-            gap: 10px;
-            grid-template-columns: repeat(auto-fit, 50px);
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .number-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border: 1px solid #ccc;
-            background-color: #e0e0e0;
-            cursor: pointer;
-            user-select: none;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        .number-box.marked {
-            background-color: #fcb3e1;
-        }
-    </style>
+    <link rel="stylesheet" href="../common.css">
 </head>
-
 <body>
 
     <a href="index.html">Home</a>
@@ -92,100 +22,8 @@
     </div>
     <div id="numbers"></div>
 
-    <script>
-        const resetMarkedButton = document.getElementById('resetMarked');
-        const generateButton = document.getElementById('generate');
-        const boxCountInput = document.getElementById('boxCount');
-        const numbersContainer = document.getElementById('numbers');
-        const sumResultAll = document.getElementById('sumResultAll');
-        let selectedNumber = null; // Stores the selected number
-
-        // Function to create the grid with random numbers
-        function createGrid(count) {
-            numbersContainer.innerHTML = ''; // Clear the grid
-
-            const minValue = 1;
-            const maxValue = 100;
-
-            let totalSum = 0;
-
-            const columns = Math.ceil(Math.sqrt(count));
-            numbersContainer.style.gridTemplateColumns = `repeat(${columns}, 50px)`;
-
-            // Create the grid boxes with random numbers
-            for (let i = 1; i <= count; i++) {
-                const box = document.createElement('div');
-                box.className = 'number-box';
-
-                const randomNumber = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
-                box.textContent = randomNumber;
-
-                box.dataset.value = randomNumber;
-
-                totalSum += randomNumber;
-
-                numbersContainer.appendChild(box);
-
-                // Add click event listener to each box
-                box.addEventListener('click', () => {
-                    handleBoxClick(randomNumber); // Handle number click
-                });
-            }
-
-            sumResultAll.value = totalSum;
-        }
-
-        // Function to handle the box click (highlight identical numbers)
-        function handleBoxClick(number) {
-            if (selectedNumber === number) {
-                resetMarked(); // If the same number is clicked again, reset
-                return;
-            }
-
-            selectedNumber = number;
-            const allBoxes = document.querySelectorAll('.number-box');
-            const matchingBoxes = [];
-
-            // Reset the previously marked boxes
-            allBoxes.forEach(box => box.classList.remove('marked'));
-
-            // Find all boxes with the same number and highlight them
-            allBoxes.forEach(box => {
-                if (parseInt(box.dataset.value) === number) {
-                    box.classList.add('marked');
-                    matchingBoxes.push(box);
-                }
-            });
-
-            // Update the text to show how many copies of the number
-            copies.textContent = `${matchingBoxes.length} copies of the number ${number}`;
-        }
-
-        // Function to reset marked boxes
-        function resetMarked() {
-            const markedBoxes = document.querySelectorAll('.number-box.marked');
-            markedBoxes.forEach(box => box.classList.remove('marked'));
-
-            selectedNumber = null;
-            sumResultAll.textContent = 'Click on a number to find copies'; // Reset message
-        }
-
-        // Event listener for the "Create" button
-        generateButton.addEventListener('click', () => {
-            const count = parseInt(boxCountInput.value, 10);
-
-            if (isNaN(count) || count <= 0) {
-                alert('Please enter a valid positive number.');
-                return;
-            }
-
-            createGrid(count);
-        });
-
-        // Reset the marked boxes when the reset button is clicked
-        resetMarkedButton.addEventListener('click', resetMarked);
-
-    </script>
+    <script src="../common.js"></script>
+    <script src="same.js"></script>
 
 </body>
 
