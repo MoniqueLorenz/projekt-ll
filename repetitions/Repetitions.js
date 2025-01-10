@@ -1,51 +1,48 @@
-const generateButton = document.getElementById('generate');
-const boxCountInput = document.getElementById('boxCount');
+["sumResultAll", "sumResultMarked"].forEach(id => (document.getElementById(id).value = "-"));
 
+const countOccurrences = gridCells =>
+    gridCells.reduce((counts, cell) => {
+        const num = parseInt(cell.textContent);
+        counts[num] = (counts[num] || 0) + 1;
+        return counts;
+    }, {});
 
-// Function to analyze the grid for the most repeated number(s) and missing numbers, and mark them
-function analyzeGrid() {
-// Retrieve the numbers displayed in the grid
-const numbers = [];
-document.querySelectorAll('.number-box').forEach(box => {
-    numbers.push(parseInt(box.textContent)); // Store the numbers from the grid
-});
+const getMostRepeatedNumbers = counts => {
+    const maxCount = Math.max(...Object.values(counts));
+    const mostRepeated = Object.keys(counts)
+        .filter(num => counts[num] === maxCount)
+        .map(Number);
+    return { mostRepeated, maxCount };
+};
 
-// Step 1: Calculate the frequency of each number in the grid
-const frequency = {};
-numbers.forEach(num => {
-    frequency[num] = (frequency[num] || 0) + 1;
-});
+const updateField = (id, value) =>
+    (document.getElementById(id).value = value.length ? value.join(", ") : "-");
 
-// Step 2: Find the maximum frequency (the highest number of repetitions)
-const maxFrequency = Math.max(...Object.values(frequency));
+const highlightNumbers = (gridCells, numbers) =>
+    gridCells.forEach(cell => {
+        cell.classList.toggle("highlight", numbers.includes(parseInt(cell.textContent)));
+    });
 
-// Step 3: Find the number(s) with the highest frequency
-const mostRepeatedNumbers = Object.keys(frequency)
-    .filter(num => frequency[num] === maxFrequency)
-    .map(Number); // Convert keys back to numbers
+// Find missing numbers from 1 to 100
+const findMissingNumbers = gridCells => {
+    const presentNumbers = new Set(Array.from(gridCells, cell => parseInt(cell.textContent)));
+    return Array.from({ length: 99 }, (_, i) => i + 1).filter(num => !presentNumbers.has(num));
+};
 
-// Step 4: Display the most repeated number(s) in the input field
-sumResultAll.value = mostRepeatedNumbers.join(', ');
+// Analyze the grid
+const analyzeGrid = () => {
+    const gridCells = Array.from(document.querySelectorAll("#numbers .gridCell"));
+    if (!gridCells.length) return console.warn("No grid cells found.");
 
-// Step 5: Identify missing numbers (let's assume range is from 1 to the maximum number in the grid)
-const maxNumberInGrid = Math.max(...numbers);
-const missingNumbers = [];
-for (let i = 1; i <= maxNumberInGrid; i++) {
-    if (!numbers.includes(i)) {
-        missingNumbers.push(i);
-    }
-}
+    const counts = countOccurrences(gridCells);
+    const { mostRepeated, maxCount } = getMostRepeatedNumbers(counts);
 
-// Step 6: Display the missing numbers in the input field
-sumResultMarked.value = missingNumbers.length > 0 ? missingNumbers.join(', ') : '-';
+    updateField("sumResultAll", mostRepeated.map(num => `${num} (${maxCount} times)`));
+    highlightNumbers(gridCells, mostRepeated);
 
-// Step 7: Mark the most repeated number(s) in the grid
-document.querySelectorAll('.number-box').forEach(box => {
-    const number = parseInt(box.textContent);
-    if (mostRepeatedNumbers.includes(number)) {
-        box.classList.add('marked');
-    } else {
-        box.classList.remove('marked'); // Ensure other boxes are unmarked
-    }
-});
-}
+    const missingNumbers = findMissingNumbers(gridCells);
+    updateField("sumResultMarked", missingNumbers);
+};
+
+// Automatically analyze the grid on changes
+new MutationObserver(analyzeGrid).observe(document.getElementById("numbers"), { childList: true });

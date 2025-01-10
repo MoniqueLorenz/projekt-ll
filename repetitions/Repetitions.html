@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repetitions</title>
+    <title>Repetitions:</title>
     <link rel="stylesheet" href="../common.css">
 </head>
 
 <body>
-    <a href="index.html">Home</a>
     <div id="controls">
-        <div class="control">
-            <label>How many numbers in the grid? <input type="number" id="boxCount" min="1"></label>
-            <button id="generate">Create</button>
+        <div class="control" id="creator">
         </div>
         <div class="control">
             <label>Most repeated number(s):</label>
@@ -20,11 +18,11 @@
         </div>
         <div class="control">
             <label>Number(s) not in place:</label>
-            <input type="text" id="sumResultMarked" readonly value="-">
+            <textarea id="sumResultMarked" readonly>-</textarea>
         </div>
     </div>
-    <div id="numbers"></div> <!-- Add this to display the grid -->
+    <div id="numbers"></div>
 </body>
-<script src="../common2.js"></script>
+<script src="../common.js"></script>
 <script src="Repetitions.js"></script>
 </html>

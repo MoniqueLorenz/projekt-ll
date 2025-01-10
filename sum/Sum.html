@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repetitions</title>
+    <title>Sum:</title>
     <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="sum.css">
 </head>
 
 <body>
-    <a href="index.html">Home</a>
+    <a href=""></a>
     <div id="controls">
-        <div class="control"></div>  <!-- Placeholder for dynamic content -->
-
+        <div class="control" id="creator">
+        </div>
         <div class="control">
-            <label>Most repeated number(s):</label>
+            <label>Sum of all:</label>
             <input type="text" id="sumResultAll" readonly value="-">
         </div>
         <div class="control">
-            <label>Number(s) not in place:</label>
+            <label>Sum of marked:</label>
             <input type="text" id="sumResultMarked" readonly value="-">
+            <button id="resetMarked">Reset</button>
         </div>
     </div>
-    <div id="numbers"></div> <!-- Add this to display the grid -->
+    <div id="numbers"></div>
 </body>
-<script src="../common2.js"></script>
-<script src="reptest.js"></script>
+
+<script src="../common.js"></script>
+<script src="Sum.js"></script>
 </html>

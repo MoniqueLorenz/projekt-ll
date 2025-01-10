@@ -4,7 +4,7 @@
 }
 
 body {
-
+    font-family: LEMONMILK-Regular;
 }
 
 .control {
@@ -35,18 +35,10 @@ body {
     text-align: center;
 }
 
-.gridCell.marked {
-    background-color: pink; /* Sätter bakgrundsfärgen till rosa */
-}
+
 
 #sumResultMarked {
     overflow: auto;
-}
-
-
-.gridCell.highlight {
-    background-color: green;
-    color: white;
 }
 
 /* Default grid cell */
