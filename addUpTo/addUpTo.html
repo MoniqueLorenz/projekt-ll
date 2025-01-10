@@ -4,29 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>addUpTo</title>
+    <title>Sum:</title>
     <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="addUpTo.css">
 </head>
 
 <body>
-    <a href="">Home</a>
+    <a id="myLink" href=""></a>
     <div id="controls">
-
-        <div class="control">
-            <label>How many numbers in the grid? <input type="number" id="boxCount" min="1"></label>
-            <button id="generate">Create</button>
+        <div class="control" id="creator">
         </div>
-        
         <div class="control">
-            <label>Add uo to:<input type="number" id="boxCount" min="1"></label>
-            <button id="resetMarked">Find to cells that add up</button>
+            <label>Add up to:</label>
+            <input type="text" id="sumResultAll" placeholder="">
+            <button id="resetMarked">Find two cells that add up to</button>
         </div>
-
     </div>
-    <div id="numbers"></div> <!-- Add this to display the grid -->
-     <!-- scripts -->
-    <script src="../common.js"></script>
-    <script src="addUpTo.js"></script>
+    <div id="numbers"></div>
 </body>
-</html>
 
+<script src="../common.js"></script>
+<script src="addUpTo.js"></script>
+</html>

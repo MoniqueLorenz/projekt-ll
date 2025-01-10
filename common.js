@@ -1,6 +1,7 @@
 const link = document.getElementById("myLink");
 link.href = "../index.html"; // Ensure the path is correct
 link.textContent = "Go to Home";
+link.style.alignItems = "center";
 
 document.addEventListener("DOMContentLoaded", function () {
     const controlDiv = document.getElementById("creator");
@@ -34,7 +35,7 @@ function createGrid(cellCount) {
 
 
     for (let i = 0; i < cellCount; i++) {
-        const randomNum = Math.floor(Math.random() * 100) + 1;
+        const randomNum = Math.floor(Math.random() * 99) + 0;
         const cell = document.createElement("div");
         cell.classList.add("gridCell");
         cell.textContent = randomNum;
