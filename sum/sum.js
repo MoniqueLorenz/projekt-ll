@@ -1,52 +1,61 @@
-const boxCountInput = document.getElementById('boxCount');
-const generateButton = document.getElementById('generate');
-const numbersDiv = document.getElementById('numbers');
-const sumResultMarked = document.getElementById('sumResultMarked');
-const resetMarkedButton = document.getElementById('resetMarked');
+// Clear input fields on page load
+document.getElementById("sumResultAll").value = "-";
+document.getElementById("sumResultMarked").value = "-";
 
 
-function toggleMarked(event) {
-    const box = event.target;
+let markedCells = [];
 
-    // Toggle the 'marked' class on the clicked box
-    box.classList.toggle('marked');
-
-    // Get all marked boxes
-    const markedBoxes = document.querySelectorAll('.number-box.marked');
-
-    // Calculate the sum of all marked boxes
-    const markedSum = Array.from(markedBoxes)
-        .reduce((sum, box) => sum + parseInt(box.dataset.value), 0);
-
-    // Display the marked sum in the input field
-    sumResultMarked.value = markedSum;
+// Function to toggle selection of grid cells
+function toggleCellSelection(cell, cellValue) {
+    if (cell.classList.contains("marked")) {
+        cell.classList.remove("marked");
+        markedCells = markedCells.filter(value => value !== cellValue);
+    } else {
+        cell.classList.add("marked");
+        markedCells.push(cellValue);
+    }
+    updateMarkedSum();
 }
 
-// Add event listener to each number box after the grid is created
-numbersDiv.addEventListener('click', (event) => {
-    if (event.target.classList.contains('number-box')) {
-        toggleMarked(event);
+// Function to calculate the sum of marked cells
+function updateMarkedSum() {
+    const markedSum = markedCells.reduce((accum, current) => accum + current, 0);
+    document.getElementById("sumResultMarked").value = markedSum;
+}
+
+// Function to calculate the total sum of all grid cells
+function updateTotalGridSum() {
+    const gridCells = document.querySelectorAll("#numbers .gridCell");
+    let totalSum = 0;
+
+    gridCells.forEach(cell => {
+        totalSum += parseInt(cell.textContent);
+    });
+
+    document.getElementById("sumResultAll").value = totalSum;
+}
+
+// Add event listeners to handle cell selection
+document.getElementById("numbers").addEventListener("click", function (e) {
+    if (e.target.classList.contains("gridCell")) {
+        const cell = e.target;
+        const cellValue = parseInt(cell.textContent);
+        toggleCellSelection(cell, cellValue);
     }
 });
 
-
-// Event listener for the "Create" button
-generateButton.addEventListener('click', () => {
-    const count = parseInt(boxCountInput.value, 10);
-
-    // Validate the input
-    if (isNaN(count) || count <= 0) {
-        alert('Please enter a valid positive number.');
-        return;
-    }
-
-    // Create the grid with random numbers
-    createGrid(count);
+// Add event listener to reset marked cells
+document.getElementById("resetMarked").addEventListener("click", function () {
+    document.querySelectorAll(".gridCell.marked").forEach(cell => cell.classList.remove("marked"));
+    markedCells = [];
+    updateMarkedSum();
 });
 
-function resetMarkedSum() {
-    const markedBoxes = document.querySelectorAll('.number-box.marked');
-    markedBoxes.forEach(box => box.classList.remove('marked')); // Remove the 'marked' class
-    sumResultMarked.value = '-'; // Reset the sum of marked boxes
-}
-resetMarkedButton.addEventListener('click', resetMarkedSum);
+// Hook into the grid creation process (ensure sum updates correctly after grid creation)
+document.addEventListener("DOMContentLoaded", function () {
+    const createButton = document.querySelector("#creator button");
+    createButton.addEventListener("click", function () {
+        // Delay sum updates to ensure grid is fully created
+        setTimeout(updateTotalGridSum, 0);
+    });
+});
