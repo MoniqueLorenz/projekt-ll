@@ -1,62 +1,45 @@
-const generateButton = document.getElementById('generate');
-const resetMarkedButton = document.getElementById('resetMarked');
-const boxCountInput = document.getElementById('boxCount');
+// Function to toggle red background color on grid cells
+function toggleRedBackground(event) {
+    const cell = event.target;
 
+    // Toggle the 'filled' class on the clicked cell
+    if (cell.classList.contains("filled")) {
+        cell.classList.remove("filled"); // Remove the red color and reveal the number
+        cell.textContent = cell.dataset.number; // Restore the original number
+    } else {
+        cell.classList.add("filled"); // Add the red color and hide the number
+        cell.textContent = ""; // Clear the cell's text
+    }
+}
 
-// Function to reset marked boxes
-function resetMarked() {
-    const markedBoxes = document.querySelectorAll('.number-box.marked');
-    markedBoxes.forEach(box => {
-        box.classList.remove('marked');
-        box.style.backgroundColor = ''; // Reset background
-        box.textContent = box.dataset.value; // Show the number again
+// Function to handle the "Fill Cleared" button click
+function fillCleared() {
+    const gridCells = document.querySelectorAll("#numbers .gridCell.filled");
+    gridCells.forEach(cell => {
+        cell.classList.remove("filled"); // Remove the red color by removing the 'filled' class
+        cell.textContent = cell.dataset.number; // Restore the number from the data attribute
     });
 }
 
-// Add event listener for grid clicks
-document.addEventListener('click', (event) => {
-    if (event.target.classList.contains('number-box')) {
-        const box = event.target;
+// Add event listener to the "Fill Cleared" button
+document.getElementById("ClearButton").addEventListener("click", fillCleared);
 
-        // Toggle marking
-        if (box.classList.contains('marked')) {
-            box.classList.remove('marked');
-            box.style.backgroundColor = ''; // Reset background
-            box.textContent = box.dataset.value; // Show the number again
-        } else {
-            box.classList.add('marked');
-            box.style.backgroundColor = 'red'; // Fill with red
-            box.textContent = ''; // Hide the number
-        }
-    }
-});
+// Function to add event listeners to grid cells
+function addClickListenersToGridCells() {
+    const gridCells = document.querySelectorAll("#numbers .gridCell"); // Get all grid cells
+    gridCells.forEach(cell => {
+        // Store the original number in a data attribute
+        cell.dataset.number = cell.textContent;
+        cell.addEventListener("click", toggleRedBackground); // Add click event listener
+    });
+}
 
-// Apply hover effect only to marked boxes
-document.addEventListener('mouseover', (event) => {
-    if (event.target.classList.contains('marked')) {
-        event.target.style.backgroundColor = 'orange'; // Change to orange on hover
-    }
-});
+// Hook into the grid creation process
+const originalCreateGrid = createGrid; // Save the reference to the original createGrid function
+createGrid = function (cellCount) {
+    originalCreateGrid(cellCount); // Call the original createGrid function
+    addClickListenersToGridCells(); // Add click listeners after the grid is created
+};
 
-document.addEventListener('mouseout', (event) => {
-    if (event.target.classList.contains('marked')) {
-        event.target.style.backgroundColor = 'red'; // Revert back to red
-    }
-});
-
-// Event listener for the "Create" button
-generateButton.addEventListener('click', () => {
-    const count = parseInt(boxCountInput.value, 10);
-
-    // Validate the input
-    if (isNaN(count) || count <= 0) {
-        alert('Please enter a valid positive number.');
-        return;
-    }
-
-    // Create the grid with random numbers
-    createGrid(count);
-});
-
-// Reset the marked boxes when the reset button is clicked
-resetMarkedButton.addEventListener('click', resetMarked);
+// Add event listener to the "Fill Cleared" button
+document.getElementById("ClearButton").addEventListener("click", fillCleared);

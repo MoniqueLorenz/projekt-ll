@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repetitions:</title>
+    <title>Find same:</title>
     <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="findSame.css">
 </head>
 
 <body>
@@ -13,17 +14,14 @@
     <div id="controls">
         <div class="control" id="creator">
         </div>
+
         <div class="control">
-            <label>Most repeated number(s):</label>
-            <input type="text" id="sumResultAll" readonly value="-">
-        </div>
-        <div class="control">
-            <label>Number(s) not in place:</label>
-            <textarea id="sumResultMarked" readonly>-</textarea>
+            <label>Click on a number to find copies</label>
+            <button id="resetMarked">Reset</button>
         </div>
     </div>
     <div id="numbers"></div>
 </body>
 <script src="../common.js"></script>
-<script src="Repetitions.js"></script>
+<script src="FindSame.js"></script>
 </html>

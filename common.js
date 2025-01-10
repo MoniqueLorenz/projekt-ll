@@ -1,4 +1,6 @@
-
+const link = document.getElementById("myLink");
+link.href = "../index.html"; // Ensure the path is correct
+link.textContent = "Go to Home";
 
 document.addEventListener("DOMContentLoaded", function () {
     const controlDiv = document.getElementById("creator");

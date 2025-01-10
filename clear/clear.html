@@ -6,26 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="clear.css">
 </head>
-
+<a href=""></a>
 <body>
-    <a href="">Home</a>
+    <a id="myLink" href=""></a>
     <div id="controls">
-        <div class="control">
-            <label>How many numbers in the grid? <input type="number" id="boxCount" min="1"></label>
-            <button id="generate">Create</button>
+        <div class="control" id="creator">
         </div>
 
         <div class="control">
-            <button id="resetMarked">Fill Cleared</button>
+            <button id="ClearButton">Fill Cleard</button>
         </div>
     </div>
-    <div id="numbers"></div> <!-- Add this to display the grid -->
-    <!-- scripts -->
-     <script src="../common.js"></script>
-     <script src="clear.js"></script>
-   
-    
+    <div id="numbers"></div>
 </body>
-
+<script src="../common.js"></script>
+<script src="clear.js"></script>
 </html>
