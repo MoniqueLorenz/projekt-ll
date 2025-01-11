@@ -1,4 +1,3 @@
-// Funktion: Räknar och markerar förekomster av ett nummer i grid
 function countAndHighlight(number, gridCells) {
     let count = 0;
     gridCells.forEach(cell => {
@@ -9,7 +8,6 @@ function countAndHighlight(number, gridCells) {
     return count;
 }
 
-// Funktion: Hanterar klick på nummer
 function handleNumberClick(event) {
     const clickedNumber = parseInt(event.target.textContent);
     const gridCells = document.querySelectorAll("#numbers .gridCell");
@@ -18,7 +16,6 @@ function handleNumberClick(event) {
         `${occurrences} copies of the number ${clickedNumber}`;
 }
 
-// Funktion: Återställer markerade celler och etiketten
 function resetHighlights() {
     document.querySelector("#controls .control:nth-child(2) label").textContent = 
         "Click on a number to find copies";
@@ -27,19 +24,16 @@ function resetHighlights() {
     );
 }
 
-// Lägger till klick-händelser på gridens celler
 function addGridClickListeners() {
     document.querySelectorAll("#numbers .gridCell").forEach(cell => 
         cell.addEventListener("click", handleNumberClick)
     );
 }
 
-// Modifierar createGrid för att lägga till klick-händelser
 const originalCreateGrid = createGrid;
 createGrid = function (cellCount) {
     originalCreateGrid(cellCount);
     addGridClickListeners();
 };
 
-// Lägger till klick-händelse för återställningsknappen
 document.getElementById("resetMarked").addEventListener("click", resetHighlights);

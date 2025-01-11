@@ -23,13 +23,12 @@ const highlightNumbers = (gridCells, numbers) =>
         cell.classList.toggle("highlight", numbers.includes(parseInt(cell.textContent)));
     });
 
-// Find missing numbers from 1 to 100
+
 const findMissingNumbers = gridCells => {
     const presentNumbers = new Set(Array.from(gridCells, cell => parseInt(cell.textContent)));
     return Array.from({ length: 99 }, (_, i) => i + 1).filter(num => !presentNumbers.has(num));
 };
 
-// Analyze the grid
 const analyzeGrid = () => {
     const gridCells = Array.from(document.querySelectorAll("#numbers .gridCell"));
     if (!gridCells.length) return console.warn("No grid cells found.");
@@ -44,5 +43,4 @@ const analyzeGrid = () => {
     updateField("sumResultMarked", missingNumbers);
 };
 
-// Automatically analyze the grid on changes
 new MutationObserver(analyzeGrid).observe(document.getElementById("numbers"), { childList: true });

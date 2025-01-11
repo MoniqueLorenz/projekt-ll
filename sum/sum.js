@@ -2,6 +2,7 @@
 
 let markedCells = [];
 
+//by namn på denna till markOrUnmark
 const toggleCellSelection = (cell, cellValue) => {
     cell.classList.toggle("marked");
     if (cell.classList.contains("marked")) {

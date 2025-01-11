@@ -1,7 +1,6 @@
 const link = document.getElementById("myLink");
-link.href = "../index.html"; // Ensure the path is correct
-link.textContent = "Go to Home";
-link.style.alignItems = "center";
+link.href = "../index.html"; 
+link.textContent = "Home";
 
 document.addEventListener("DOMContentLoaded", function () {
     const controlDiv = document.getElementById("creator");
