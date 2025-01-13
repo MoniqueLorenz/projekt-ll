@@ -1,4 +1,9 @@
 .gridCell.highlight {
-    background-color: green;
+    background-color: rgb(57, 60, 57);
     color: white;
+}
+
+#sumResultMarked {
+    width: 300px;
+  border: 1px solid;
 }

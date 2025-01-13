@@ -3,7 +3,7 @@
 let markedCells = [];
 
 //by namn på denna till markOrUnmark
-const toggleCellSelection = (cell, cellValue) => {
+const markorUnmarkCellSelection = (cell, cellValue) => {
     cell.classList.toggle("marked");
     if (cell.classList.contains("marked")) {
         markedCells.push(cellValue);
@@ -24,7 +24,7 @@ const updateField = (id, value) =>
 
 document.getElementById("numbers").addEventListener("click", e => {
     if (e.target.classList.contains("gridCell")) {
-        toggleCellSelection(e.target, parseInt(e.target.textContent));
+        markorUnmarkCellSelection(e.target, parseInt(e.target.textContent));
     }
 });
 

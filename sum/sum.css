@@ -1,3 +1,4 @@
 .gridCell.marked {
-    background-color: pink; 
+    background-color: black; 
+    color: white;
 }

@@ -1,6 +1,9 @@
 const link = document.getElementById("myLink");
 link.href = "../index.html"; 
 link.textContent = "Home";
+link.style.display = "flex";
+link.style.justifyContent = "center";
+link.style.marginBottom = "20px;"
 
 document.addEventListener("DOMContentLoaded", function () {
     const controlDiv = document.getElementById("creator");
