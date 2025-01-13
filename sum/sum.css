@@ -2,3 +2,16 @@
     background-color: black; 
     color: white;
 }
+
+#sumResultMarked {
+    overflow: auto;
+    border-radius: 2px;
+    width: 300px;
+    border: 1px solid;
+}
+
+#sumResultAll {
+    width: 300px;
+    border: 1px solid;
+    border-radius: 2px;
+}

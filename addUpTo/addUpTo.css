@@ -1,3 +1,16 @@
 .highlight {
-    background-color: yellow;
+    background-color: black;
+    color: white;
+}
+
+#sumResultAll {
+    width: 300px;
+    border: 1px solid;
+    border-radius: 2px;
+}
+
+#sumResultAll {
+    width: 30px;
+    border: 1px solid;
+    border-radius: 2px;
 }

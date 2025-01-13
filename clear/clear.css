@@ -1,11 +1,11 @@
 /* Filled grid cell */
 .gridCell.filled {
-    background-color: red;
+    background-color: black;
     color: transparent; 
 }
 
 .gridCell.filled:hover {
-    background-color: orange;
+    background-color: rgb(244, 156, 4);
     cursor: pointer;
 }
 
