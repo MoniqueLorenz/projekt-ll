@@ -1,9 +1,10 @@
-["sumResultAll", "sumResultMarked"].forEach(id => (document.getElementById(id).value = "-"));
+["sumResultAll", "sumResultMarked"].forEach(
+    id => (document.getElementById(id).innerText = "-") // Use innerText for divs
+);
 
 let markedCells = [];
 
-//by namn på denna till markOrUnmark
-const markorUnmarkCellSelection = (cell, cellValue) => {
+const markOrUnmarkCellSelection = (cell, cellValue) => {
     cell.classList.toggle("marked");
     if (cell.classList.contains("marked")) {
         markedCells.push(cellValue);
@@ -19,12 +20,14 @@ const updateTotalGridSum = () => {
     updateField("sumResultAll", totalSum);
 };
 
-const updateField = (id, value) =>
-    (document.getElementById(id).value = value || "-");
+const updateField = (id, value) => {
+    const element = document.getElementById(id);
+    element.innerText = value || "-"; // Update div content with innerText
+};
 
 document.getElementById("numbers").addEventListener("click", e => {
     if (e.target.classList.contains("gridCell")) {
-        markorUnmarkCellSelection(e.target, parseInt(e.target.textContent));
+        markOrUnmarkCellSelection(e.target, parseInt(e.target.textContent));
     }
 });
 

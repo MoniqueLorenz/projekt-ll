@@ -3,7 +3,8 @@ link.href = "../index.html";
 link.textContent = "Home";
 link.style.display = "flex";
 link.style.justifyContent = "center";
-link.style.marginBottom = "20px;"
+link.style.marginBottom = "20px";
+link.style.textDecoration = "none";
 
 document.addEventListener("DOMContentLoaded", function () {
     const controlDiv = document.getElementById("creator");
@@ -14,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const input = document.createElement("input");
     input.type = "number";
+    input.style.width = "50px";
     input.min = 1;
     controlDiv.appendChild(input);
 

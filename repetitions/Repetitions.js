@@ -25,7 +25,7 @@ function analyzeGrid() {
         .filter(num => !gridCells.some(cell => parseInt(cell.textContent) === num));
 
     // Update the most repeated numbers
-    document.getElementById("sumResultAll").value = mostRepeated.length
+    document.getElementById("sumResultAll").innerText = mostRepeated.length
         ? mostRepeated.map(num => `${num} (Repeated ${maxCountRepetition} times)`).join(", ")
         : "-";
 
