@@ -1,10 +1,9 @@
 /* Filled grid cell */
 .gridCell.filled {
     background-color: red;
-    color: transparent; /* Ensure text is hidden */
+    color: transparent; 
 }
 
-/* Orange hover effect for filled grid cell */
 .gridCell.filled:hover {
     background-color: orange;
     cursor: pointer;
