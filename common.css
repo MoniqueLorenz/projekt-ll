@@ -3,8 +3,13 @@
     src: url(lemon_milk/LEMONMILK-Regular.otf);
 }
 
+@font-face {
+    font-family: Roboto_Mono;
+    src: url(Roboto_Mono/RobotoMono-VariableFont_wght.ttf);
+}
+
 body {
-    font-family: LEMONMILK-Regular;
+    font-family: Roboto_Mono;
     font-size: 13px;
     text-align: center;
 }

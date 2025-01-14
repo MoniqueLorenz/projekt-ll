@@ -1,5 +1,5 @@
 const link = document.getElementById("myLink");
-link.href = "../index.html"; 
+link.href = "index.html"; 
 link.textContent = "Home";
 link.style.display = "flex";
 link.style.justifyContent = "center";
