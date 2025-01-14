@@ -1,5 +1,5 @@
 document.getElementById("sumResultAll").value = "-";
-document.getElementById("sumResultMarked").innerText = "-"; // Use innerText for the <div>
+document.getElementById("sumResultMarked").innerText = "-"; 
 
 function analyzeGrid() {
     const gridCells = Array.from(document.querySelectorAll("#numbers .gridCell"));

@@ -1,3 +1,5 @@
+document.getElementById("sumResultAll").value = "-";
+
 function findAndHighlightPairs(targetSum) {
     const gridCells = document.querySelectorAll(".gridCell");
     const numbers = Array.from(gridCells).map(cell => parseInt(cell.textContent));
@@ -14,10 +16,10 @@ function findAndHighlightPairs(targetSum) {
             gridCells[i].classList.add("highlight");
             gridCells[cellMap.get(complement)].classList.add("highlight");
             found = true;
-            break; 
+            break;
         }
 
-        cellMap.set(numbers[i], i); 
+        cellMap.set(numbers[i], i);
     }
 
     if (!found) {

@@ -1,5 +1,5 @@
 ["sumResultAll", "sumResultMarked"].forEach(
-    id => (document.getElementById(id).innerText = "-") 
+    id => (document.getElementById(id).innerText = "-")
 );
 
 let markedCells = [];
@@ -22,7 +22,7 @@ const updateTotalGridSum = () => {
 
 const updateField = (id, value) => {
     const element = document.getElementById(id);
-    element.innerText = value || "-"; 
+    element.innerText = value || "-";
 };
 
 document.getElementById("numbers").addEventListener("click", e => {
