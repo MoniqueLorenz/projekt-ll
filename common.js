@@ -49,7 +49,7 @@ numbers.append(createButton);
 
 h2.textContent = "How many numbers in the grid?";
 createButton.textContent = "Create";
-input.value = "-";
+input.value = "";
 
 startGrid();
 
