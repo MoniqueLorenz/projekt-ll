@@ -37,7 +37,7 @@ const createButton = document.createElement("button");
 let array = [];
 
 a.setAttribute("class", "home-links");
-a.setAttribute("href", "../index.html");
+a.setAttribute("href", "index.html");
 a.textContent = "Home";
 homebutton.appendChild(a);
 
