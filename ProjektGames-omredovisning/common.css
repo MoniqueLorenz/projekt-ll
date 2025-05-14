@@ -1,0 +1,106 @@
+@font-face {
+    font-family: "Comic_Neue";
+    src: url(Comic_Neue/ComicNeue-Regular.ttf);
+}
+
+body {
+    font-family: "Comic_Neue";
+    background-color: rgba(226, 255, 228, 0.805);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.links {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(109, 149, 118);
+    font-weight: 200;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.home-links {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(113, 134, 118);
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 1px 1px 1px 1px  rgb(39, 86, 50);
+}
+
+.home-links:hover {
+    background-color:rgb(80, 95, 84);
+}
+
+
+.home-button {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#numbers {
+    display: flex;
+    height: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(19, 50px);
+    gap: 15px;
+    justify-content: center;
+}
+
+.cell {
+    background-color: rgb(113, 134, 118);
+    width: 15px;
+    height: 15px;
+    padding: 20px;
+    border-radius: 50px;
+    color:  rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    box-shadow: 1px 1px 1px 1px rgb(39, 86, 50);
+
+}
+
+.cell:hover {
+    background-color: rgb(80, 95, 84);
+}
+
+.cell:active {
+    box-shadow: none;
+}
+
+.boxes {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.943);
+    border-radius: 4px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+}
+
+h2 {
+    font-size: 20px;
+    color: rgb(80, 95, 84);
+}
+
+.wantMargin {
+    margin: 10px 0;
+}

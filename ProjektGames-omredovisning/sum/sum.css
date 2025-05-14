@@ -1,0 +1,7 @@
+.sum-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 30px;
+    margin: 10px 0;
+}
