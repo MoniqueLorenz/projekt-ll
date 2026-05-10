@@ -1,106 +1,238 @@
 @font-face {
     font-family: Roboto_Mono;
-    src: url(Roboto_Mono/RobotoMono-VariableFont_wght.ttf);
+    src: url(RobotoMono-VariableFont_wght.ttf);
+}
+
+:root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface-2: #1a1a1a;
+    --accent: #e8ff00;
+    --accent-dim: #b8cc00;
+    --text: #f0f0f0;
+    --text-muted: #555;
+    --danger: #ff2d2d;
+    --highlight: #1a3aff;
+    --border: #2a2a2a;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
-    font-family: "Roboto_Mono";
-    background-color: rgba(226, 255, 228, 0.805);
+    font-family: "Roboto_Mono", monospace;
+    background-color: var(--bg);
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(255,255,255,0.015) 39px,
+            rgba(255,255,255,0.015) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(255,255,255,0.015) 39px,
+            rgba(255,255,255,0.015) 40px
+        );
+    color: var(--text);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 20px 40px;
 }
 
+/* ── Nav links ── */
 .links {
-    margin-top: 20px;
+    margin-top: 24px;
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 a {
     text-decoration: none;
-    color: rgb(109, 149, 118);
-    font-weight: 200;
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.15s;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--accent);
+    text-decoration: none;
 }
 
+/* ── Home nav pills ── */
 .home-links {
-    font-size: 20px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(113, 134, 118);
-    padding: 10px;
-    border-radius: 50px;
-    box-shadow: 1px 1px 1px 1px  rgb(39, 86, 50);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background-color: var(--accent);
+    padding: 10px 18px;
+    border-radius: 0;
+    box-shadow: 3px 3px 0 var(--accent-dim);
+    transition: transform 0.1s, box-shadow 0.1s, background-color 0.15s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
 }
 
 .home-links:hover {
-    background-color:rgb(80, 95, 84);
+    background-color: var(--text);
+    box-shadow: 1px 1px 0 var(--accent-dim);
+    transform: translate(2px, 2px);
+    color: var(--bg);
+    text-decoration: none;
 }
 
-
+/* ── Home button bar ── */
 .home-button {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
+/* ── Input row ── */
 #numbers {
     display: flex;
-    height: 10px;
+    height: auto;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
+    margin: 8px 0;
 }
 
+/* ── Grid ── */
 #grid {
     display: grid;
     grid-template-columns: repeat(19, 50px);
-    gap: 15px;
+    gap: 12px;
     justify-content: center;
+    margin-top: 8px;
 }
 
+/* ── Cells ── */
 .cell {
-    background-color: rgb(113, 134, 118);
+    background-color: var(--surface-2);
+    border: 1px solid var(--border);
     width: 15px;
     height: 15px;
     padding: 20px;
-    border-radius: 50px;
-    color:  rgb(255, 255, 255);
+    border-radius: 0;
+    color: var(--text);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    box-shadow: 1px 1px 1px 1px rgb(39, 86, 50);
-
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background-color 0.1s, border-color 0.1s, color 0.1s;
+    clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%);
+    position: relative;
 }
 
 .cell:hover {
-    background-color: rgb(80, 95, 84);
+    background-color: var(--surface);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .cell:active {
-    box-shadow: none;
+    background-color: var(--accent);
+    color: var(--bg);
 }
 
+/* ── Info boxes ── */
 .boxes {
     display: flex;
-    border: 1px solid rgba(0, 0, 0, 0.943);
-    border-radius: 4px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0;
     text-align: center;
     justify-content: center;
     align-items: center;
-    width: 150px;
+    width: 160px;
+    padding: 6px 10px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    background: var(--surface);
+    color: var(--text);
 }
 
+/* ── Headings ── */
 h2 {
-    font-size: 20px;
-    color: rgb(80, 95, 84);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
 }
 
+/* ── Buttons (generic) ── */
+button {
+    font-family: "Roboto_Mono", monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 9px 16px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s, transform 0.08s, box-shadow 0.08s;
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+}
+
+button:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    box-shadow: 3px 3px 0 var(--accent-dim);
+    transform: translate(-1px, -1px);
+}
+
+button:active {
+    transform: translate(1px, 1px);
+    box-shadow: none;
+}
+
+/* ── Input ── */
+input {
+    font-family: "Roboto_Mono", monospace;
+    font-size: 13px;
+    font-weight: 400;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--accent);
+    padding: 8px 12px;
+    border-radius: 0;
+    outline: none;
+    width: 80px;
+    transition: border-color 0.15s;
+}
+
+input:focus {
+    border-color: var(--accent);
+    background: var(--surface-2);
+}
+
+/* ── Utility ── */
 .wantMargin {
-    margin: 10px 0;
+    margin: 12px 0;
 }
